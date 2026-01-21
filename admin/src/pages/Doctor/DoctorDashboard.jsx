@@ -77,4 +77,4 @@ const DoctorDashboard = () => {
   )
 }
 
-export default DoctorDashboard
+export default DoctorDashboard;

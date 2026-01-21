@@ -163,4 +163,4 @@ const MyAppointments = () => {
   )
 }
 
-export default MyAppointments
+export default MyAppointments;

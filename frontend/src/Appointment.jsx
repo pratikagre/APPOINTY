@@ -205,4 +205,4 @@ const Appointment = () => {
   )
 }
 
-export default Appointment
+export default Appointment;

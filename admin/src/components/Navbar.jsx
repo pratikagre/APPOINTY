@@ -19,8 +19,9 @@ const Navbar = () => {
   }
 
   const goToUserPanel = () => {
-    window.location.href = '/'
-  }
+  window.location.href = '/'
+}
+
 
   const isOnDashboard =
     location.pathname === '/admin-dashboard' ||
@@ -65,4 +66,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

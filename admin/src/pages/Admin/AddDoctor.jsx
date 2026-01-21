@@ -173,4 +173,4 @@ const AddDoctor = () => {
   )
 }
 
-export default AddDoctor
+export default AddDoctor;

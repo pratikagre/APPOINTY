@@ -19,4 +19,4 @@ const SpecialityMenu = () => {
     )
 }
 
-export default SpecialityMenu
+export default SpecialityMenu;

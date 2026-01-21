@@ -40,4 +40,4 @@ const RelatedDoctors = ({ speciality, docId }) => {
   )
 }
 
-export default RelatedDoctors
+export default RelatedDoctors;
