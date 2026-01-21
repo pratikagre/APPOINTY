@@ -4,11 +4,17 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
+import AdminContextProvider from "./context/AdminContext.jsx";
+import DoctorContextProvider from "./context/DoctorContext.jsx";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* ✅ IMPORTANT: basename because admin is hosted at /admin */}
     <BrowserRouter basename="/admin">
-      <App />
+      <AdminContextProvider>
+        <DoctorContextProvider>
+          <App />
+        </DoctorContextProvider>
+      </AdminContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
