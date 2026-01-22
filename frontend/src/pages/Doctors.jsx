@@ -13,11 +13,21 @@ const Doctors = () => {
 
   const { doctors } = useContext(AppContext)
   const applyFilter = () => {
-    if (speciality) {
-      setFilterDoc(doctors.filter(doc => doc.speciality === speciality))
-    } else {
-      setFilterDoc(doctors)
-    }
+  if (speciality) {
+    const sp = decodeURIComponent(speciality).trim().toLowerCase()
+
+    setFilterDoc(
+      doctors.filter(doc =>
+        (doc.speciality || "").trim().toLowerCase() === sp
+      )
+    )
+  } else {
+    setFilterDoc(doctors)
+  }
+   console.log("URL speciality:", speciality);
+   console.log("Doctors from API:", doctors);
+ 
+
   }
   useEffect(() => {
     applyFilter()
