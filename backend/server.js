@@ -60,5 +60,66 @@ app.get(/^\/admin(\/.*)?$/, (req, res) => {
 app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
+ import doctorModel from "./models/doctorModel.js";
+import bcrypt from "bcrypt";
+
+const seedDoctors = async () => {
+  try {
+    const count = await doctorModel.countDocuments();
+    if (count > 0) return;
+
+    const hashed = await bcrypt.hash("Doctor@123", 10);
+
+    await doctorModel.insertMany([
+      {
+        name: "Dr. Richard James",
+        email: "doc1@gmail.com",
+        password: hashed,
+        image: "https://res.cloudinary.com/demo/image/upload/v1690000000/sample.jpg",
+        speciality: "Dermatologist",
+        degree: "MBBS",
+        experience: "4 Years",
+        about: "Experienced dermatologist",
+        fees: 500,
+        address: { line1: "Delhi", line2: "India" },
+        available: true,
+        date: Date.now(),
+      },
+      {
+        name: "Dr. Emily Larson",
+        email: "doc2@gmail.com",
+        password: hashed,
+        image: "https://res.cloudinary.com/demo/image/upload/v1690000000/sample.jpg",
+        speciality: "Gynecologist",
+        degree: "MBBS",
+        experience: "3 Years",
+        about: "Experienced gynecologist",
+        fees: 600,
+        address: { line1: "Mumbai", line2: "India" },
+        available: true,
+        date: Date.now(),
+      },
+      {
+        name: "Dr. Christopher Lee",
+        email: "doc3@gmail.com",
+        password: hashed,
+        image: "https://res.cloudinary.com/demo/image/upload/v1690000000/sample.jpg",
+        speciality: "Pediatricians",
+        degree: "MBBS",
+        experience: "5 Years",
+        about: "Experienced pediatrician",
+        fees: 400,
+        address: { line1: "Pune", line2: "India" },
+        available: true,
+        date: Date.now(),
+      },
+    ]);
+
+    console.log("✅ Seed doctors inserted");
+  } catch (err) {
+    console.log("❌ Seed doctors failed:", err.message);
+  }
+};
+
 
 app.listen(port, () => console.log(`Server started on PORT:${port}`));

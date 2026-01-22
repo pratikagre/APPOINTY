@@ -15,15 +15,15 @@ const Doctors = () => {
   const applyFilter = () => {
   if (speciality) {
     const sp = decodeURIComponent(speciality).trim().toLowerCase()
-
     setFilterDoc(
-      doctors.filter(doc =>
-        (doc.speciality || "").trim().toLowerCase() === sp
-      )
+      doctors.filter(doc => (doc.speciality || "").trim().toLowerCase() === sp)
     )
   } else {
     setFilterDoc(doctors)
   }
+
+
+  
    console.log("URL speciality:", speciality);
    console.log("Doctors from API:", doctors);
  

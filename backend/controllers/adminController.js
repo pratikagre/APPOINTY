@@ -27,6 +27,7 @@ const loginAdmin = async (req, res) => {
 }
 
 // API for adding Doctor
+// API for adding Doctor
 const addDoctor = async (req, res) => {
   try {
     const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
@@ -47,8 +48,21 @@ const addDoctor = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" });
-    const imageUrl = imageUpload.secure_url;
+    // ✅ default image (so cloudinary optional)
+    let imageUrl =
+      "https://res.cloudinary.com/demo/image/upload/v1690000000/sample.jpg";
+
+    // ✅ upload only if file exists
+    if (imageFile) {
+      try {
+        const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+          resource_type: "image",
+        });
+        imageUrl = imageUpload.secure_url;
+      } catch (err) {
+        console.log("Cloudinary upload failed, using default image:", err.message);
+      }
+    }
 
     const doctorData = {
       name,
@@ -61,14 +75,13 @@ const addDoctor = async (req, res) => {
       about,
       fees,
       address: JSON.parse(address),
-      date: Date.now()
+      date: Date.now(),
     };
 
     const newDoctor = new doctorModel(doctorData);
     await newDoctor.save();
 
     res.status(200).json({ success: true, message: "Doctor Added" });
-
   } catch (error) {
     console.error("Error adding doctor:", error);
     res.status(500).json({ success: false, message: error.message || "Internal Server Error" });
